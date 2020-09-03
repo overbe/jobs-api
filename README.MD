@@ -32,9 +32,7 @@ docker-compose -f deploy/local-docker-compose.yml --compatibility stop jobs
 JOBS_ENV=local go run --race cmd/jobs.go
 ```
 
-* Server start:
-
-http://localhost:8080 
+* Server starts on: http://localhost:8080 
 
 * Example tests queries on:
 
