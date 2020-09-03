@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/spf13/viper"
 	"jobs/server"
 	"jobs/server/config"
 	"log"
 	"strings"
+
+	"github.com/spf13/viper"
 )
 
 // init reads in config file and ENV variables if set.

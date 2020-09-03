@@ -1,16 +1,16 @@
 package idgenerator
 
-var firstId = 0
+const firstID = 0
 
 type Counter struct {
 	count int
 }
 
 func Init() *Counter {
-	return &Counter{firstId}
+	return &Counter{firstID}
 }
 
-func (c *Counter) NextId() int {
+func (c *Counter) NextID() int {
 	c.count++
 	return c.count
 }

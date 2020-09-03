@@ -2,7 +2,7 @@ package queue
 
 import (
 	it "jobs/internal/platform/datastructure/iterator"
-	"jobs/internal/platform/datastructure/linkedList"
+	"jobs/internal/platform/datastructure/linkedlist"
 	"jobs/internal/platform/datastructure/node"
 )
 
@@ -14,11 +14,11 @@ type IQueue interface {
 }
 
 type Queue struct {
-	li *linkedList.LinkedList
+	li *linkedlist.LinkedList
 }
 
 func New() *Queue {
-	list := linkedList.New(nil, nil)
+	list := linkedlist.New()
 	return &Queue{list}
 }
 

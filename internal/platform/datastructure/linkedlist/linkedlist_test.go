@@ -1,4 +1,4 @@
-package linkedList
+package linkedlist
 
 import (
 	it "jobs/internal/platform/datastructure/iterator"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestAppend(t *testing.T) {
-	li := New(nil, nil)
+	li := New()
 	li.Append(32, "", "")
 	li.Append(50, "", "")
 	li.Append(100, "", "")
@@ -37,13 +37,13 @@ func TestAppend(t *testing.T) {
 
 func TestRemoveFront(t *testing.T) {
 	numbers := []int{1, 2, 3, 4, 5, 6}
-	li2 := New(nil, nil)
+	li2 := New()
 
 	if li2.RemoveFront() != nil {
 		t.Errorf("should be nil")
 	}
 
-	li := New(nil, nil)
+	li := New()
 	for _, number := range numbers {
 		li.Append(number, "", "")
 	}

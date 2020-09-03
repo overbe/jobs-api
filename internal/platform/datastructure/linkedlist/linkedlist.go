@@ -1,4 +1,4 @@
-package linkedList
+package linkedlist
 
 import (
 	"fmt"
@@ -17,11 +17,7 @@ func (it *iterator) Next() *node.Node {
 }
 
 func (it *iterator) HasNext() bool {
-	if it.current == nil {
-		return false
-	}
-
-	return true
+	return it.current != nil
 }
 
 type LinkedList struct {
@@ -35,7 +31,7 @@ func (li *LinkedList) Iterator() it.IIterator {
 	return &iterator{head}
 }
 
-func New(head, current *node.Node) *LinkedList {
+func New() *LinkedList {
 	return &LinkedList{nil, nil, 0}
 }
 
@@ -70,19 +66,6 @@ func (li *LinkedList) Append(item int, status, jobType string) *node.Node {
 
 // Removes an element from front of the list
 func (li *LinkedList) RemoveFront() *node.Node {
-	head := li.head
-	if head != nil {
-		nextNode := head.Next()
-		li.head = nextNode
-		li.length--
-		head.SetNext(nil)
-		return head
-	}
-
-	return nil
-}
-
-func (li *LinkedList) UpdateStatus(id int, status string) *node.Node {
 	head := li.head
 	if head != nil {
 		nextNode := head.Next()

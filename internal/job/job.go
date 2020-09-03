@@ -28,7 +28,7 @@ func Init() *Config {
 	return &Config{q}
 }
 
-func (c Config) FindBiId(id int) *node.Node {
+func (c Config) FindByID(id int) *node.Node {
 	var iter it.IIterator = c.Iterator()
 	for iter.HasNext() {
 		job := iter.Next()
@@ -51,9 +51,9 @@ func (c Config) GetNextFreeJob() *node.Node {
 	return nil
 }
 
-func (c Config) ConcludeJobBiId(id int) *node.Node {
-	job := c.FindBiId(id)
-	if job != nil && job.Status() == JOBSTATUSINPROGRESS{
+func (c Config) ConcludeJobBiID(id int) *node.Node {
+	job := c.FindByID(id)
+	if job != nil && job.Status() == JOBSTATUSINPROGRESS {
 		job.SetStatus(JOBSTATUSCONCLUDED)
 		return job
 	}

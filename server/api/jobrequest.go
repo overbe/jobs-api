@@ -38,7 +38,7 @@ func AddJobHandler(dapi *config.Builder) http.Handler {
 			http.Error(w, "Payload invalid", http.StatusBadRequest)
 			return
 		}
-		id := dapi.Identificator.NextId()
+		id := dapi.Identificator.NextID()
 		dapi.Jobs.Enqueue(id, job.JOBSTATUSQUEUED, payload.JobType)
 		response.ID = id
 		writeResponse(w, response)
@@ -48,15 +48,15 @@ func AddJobHandler(dapi *config.Builder) http.Handler {
 //get next free job from Queue
 func GetJobHandler(dapi *config.Builder) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		job := dapi.Jobs.GetNextFreeJob()
-		if job == nil {
+		freeJob := dapi.Jobs.GetNextFreeJob()
+		if freeJob == nil {
 			var response errorResponse
 			response.Error = "Job queue is empty"
 			writeResponse(w, response)
 			return
 		}
 		var response jobResponse
-		response.ID = job.Item()
+		response.ID = freeJob.Item()
 		writeResponse(w, response)
 	})
 }
@@ -66,12 +66,11 @@ func ConcludeJobHandler(dapi *config.Builder) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		queries := mux.Vars(r)
 		if val, ok := queries["job_id"]; ok {
-			strconv.Atoi(val)
 			id, _ := strconv.Atoi(val)
-			job := dapi.Jobs.ConcludeJobBiId(id)
-			if job != nil {
+			concludeJob := dapi.Jobs.ConcludeJobBiID(id)
+			if concludeJob != nil {
 				var response jobResponse
-				response.ID = job.Item()
+				response.ID = concludeJob.Item()
 				writeResponse(w, response)
 				return
 			}
@@ -80,7 +79,6 @@ func ConcludeJobHandler(dapi *config.Builder) http.Handler {
 		var response errorResponse
 		response.Error = "Job not found"
 		writeResponse(w, response)
-		return
 	})
 }
 
@@ -89,14 +87,18 @@ func GetJobStatusHandler(dapi *config.Builder) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		queries := mux.Vars(r)
 		if val, ok := queries["job_id"]; ok {
-			strconv.Atoi(val)
-			id, _ := strconv.Atoi(val)
-			job := dapi.Jobs.FindBiId(id)
-			if job != nil {
+			id, err := strconv.Atoi(val)
+			if err != nil {
+				log.Printf("GetJobStatusHandler: preparePayload: error: %v", err)
+				http.Error(w, "Payload invalid", http.StatusBadRequest)
+				return
+			}
+			foundJob := dapi.Jobs.FindByID(id)
+			if foundJob != nil {
 				var response jobStatusResponse
-				response.ID = job.Item()
-				response.Status = job.Status()
-				response.JobType = job.JobType()
+				response.ID = foundJob.Item()
+				response.Status = foundJob.Status()
+				response.JobType = foundJob.JobType()
 				writeResponse(w, response)
 				return
 			}
@@ -105,6 +107,5 @@ func GetJobStatusHandler(dapi *config.Builder) http.Handler {
 		var response errorResponse
 		response.Error = "Job not found"
 		writeResponse(w, response)
-		return
 	})
 }
