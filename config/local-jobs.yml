@@ -1,0 +1,6 @@
+server:
+  port: 8080
+  writeTimeoutSec: 15
+  readTimeoutSec: 15
+  shutdownTime: 10
+  queueCapacity: 10

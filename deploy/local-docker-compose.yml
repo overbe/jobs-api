@@ -1,0 +1,17 @@
+version: "3.7"
+
+# Add any services if we need.
+services:
+  jobs:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    image: jobs-local:latest
+    ports:
+      - 8080:8080
+    environment:
+      - JOBS=local
+    network_mode: host
+    dns:
+      - 10.13.34.128
+    restart: on-failure

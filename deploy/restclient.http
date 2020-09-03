@@ -1,0 +1,37 @@
+### PING
+
+GET http://localhost:8080/ping
+
+###
+
+### ADD job in queue with status "QUEUED"
+
+POST http://localhost:8080/api/v1/jobs/enqueue
+Accept: "application/json"
+
+{
+  "type": "TIME_CRITICAL"
+}
+
+###
+
+### Get job ID and change status to "IN_PROGRESS"
+
+POST http://localhost:8080/api/v1/jobs/dequeue
+Content-Type: "application/json"
+Accept: "application/json"
+###
+
+### Conclude jo by ID, change status to "CONCLUDED"
+
+POST http://localhost:8080/api/v1/jobs/1/conclude
+Content-Type: "application/json"
+Accept: "application/json"
+
+###
+
+### GET job current status by ID
+GET http://localhost:8080/api/v1/jobs/1
+Content-Type: "application/json"
+Accept: "application/json"
+###
