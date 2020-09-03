@@ -21,8 +21,8 @@ docker-compose -f deploy/local-docker-compose.yml down
 * Rebuild and restart the specific service
 
 ```sh
-docker-compose -f deploy/local-docker-compose.yml rm -f -s -v service_Name
-docker-compose -f deploy/local-docker-compose.yml --compatibility up -d --build service_Name
+docker-compose -f deploy/local-docker-compose.yml rm -f -s -v jobs
+docker-compose -f deploy/local-docker-compose.yml --compatibility up -d --build jobs
 ```
 
 * Run jobs server via cmd for debugging:
