@@ -34,8 +34,8 @@ JOBS_ENV=local go run --race cmd/jobs.go
 
 * Server starts on: http://localhost:8080 
 
-* Example test queries on:
+* Example test queries at:
 
 ```
-jobs/deploy/restclient.http
+/deploy/restclient.http
 ```
